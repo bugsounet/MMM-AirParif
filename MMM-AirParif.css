@@ -1,0 +1,37 @@
+.ville,
+.indice,
+.polluants {
+  text-align: left;
+}
+
+
+.ville:before {
+  font-family: "weathericons";
+  content: "\f062";
+  padding-left: 10px;
+  padding-right: 10px
+}
+.ville.Moyen:before,
+.ville.Eleve:before {
+  content: "\f074";
+}
+.ville.TEleve:before {
+  content: "\f071";
+}
+
+
+.indice.TFaible {
+  color: #009966;
+}
+.indice.Faible {
+  color: #6e9900;
+}
+.indice.Moyen {
+  color: #ffde33;
+}
+.indice.Eleve {
+  color: #ff9933;
+}
+.indice.TEleve {
+  color: #960018;
+}
