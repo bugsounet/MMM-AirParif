@@ -101,6 +101,11 @@ Module.register("MMM-AirParif", {
 					polRow = document.createElement("tr");
 
 					polVilleCell = document.createElement("td");
+					if (what == 0) {
+						polVilleCell.className = "xsmall iaqi value " + indClass;
+						if (Object.keys(polluants).length > 1) polVilleCell.innerHTML = "Polluants :"
+						else polVilleCell.innerHTML = "Polluant :"
+					}
 					polRow.appendChild(polVilleCell);
 
 					polWhatCell = document.createElement("td");
