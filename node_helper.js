@@ -28,12 +28,10 @@ module.exports = NodeHelper.create({
 				if(i != (self.codeInsee.length-1)) this.url += ","
 				else this.url += ("&key=" + this.config.key)
 			}
-			//console.log(">>> URL : " + this.url)
 			this.getAir(this.url); // envoi vers l'api de AirParif
 		} ,4000);
 
 		setTimeout(() => {
-			//console.log("data: ",self.data);
 			for(var i in self.data) {
 				for (var j in self.codeInsee) { // verifie si les codes INSEE sont bien en region parisienne
 					if(self.data[i].ninsee == self.codeInsee[j]) { // stock les données si ok !
@@ -43,7 +41,6 @@ module.exports = NodeHelper.create({
 				}
 			}
 			console.log("[AirParif] SCAN Effectué")
-			//console.log("[AirParif] FINAL SCAN RESULT: ", self.SCAN);
 			if (self.SCAN.ville[0] == null) self.sendSocketNotification("RESULT", false); // pas de villes retournées (erreur)
 			else self.sendSocketNotification("RESULT", self.SCAN); // envoie les donnnées
 		} , 6000);
@@ -55,7 +52,6 @@ module.exports = NodeHelper.create({
 		var self = this
 		this.getAir(this.url);
 		setTimeout(() => {
-                	//console.log("update data: ",self.data);
                 	for(var i in self.data) {
                    	   for (var j in self.codeInsee) {
                	      	      if(self.data[i].ninsee == self.codeInsee[j]) {
@@ -65,7 +61,6 @@ module.exports = NodeHelper.create({
                    	   }
                 	}
 			console.log("[AirParif] SCAN Update Effectué")
-                	//console.log("FINAL SCAN RESULT (Update): ", self.SCAN);
                 	if (self.SCAN.ville[0] == null) self.sendSocketNotification("RESULT", false);
                 	else self.sendSocketNotification("RESULT", self.SCAN);
 		} , 4000);
@@ -83,7 +78,6 @@ module.exports = NodeHelper.create({
 					console.log("[AirParif][API] Erreur > "+ response.statusCode + " -- ", result)
 				} else {
 					self.data = result;
-					//console.log(self.data);
 				}
 			} else {
 				console.log("[AirParif][API] ", result)
@@ -110,7 +104,6 @@ module.exports = NodeHelper.create({
         			else {
 					self.codeInsee[i] = data[0].code;
 					self.Village[i] = data[0].nom;
-					//console.log("[INSEE] Voici Le code insee de " + self.Village[i] + ": " + self.codeInsee[i]);
 				}
     			}
 		});

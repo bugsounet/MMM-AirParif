@@ -142,8 +142,7 @@ Module.register("MMM-AirParif", {
 		if (notification === "RESULT" ) {
 			this.result = payload
 			this.loaded = true
-			//console.log("Result : ", this.result);
-			this.resetCountdown();
+			this.UpdateInterval();
 		}
 	},
 
@@ -170,18 +169,16 @@ Module.register("MMM-AirParif", {
     		return config
   	},
 
-        resetCountdown: function () {
+        UpdateInterval: function () {
         	var self = this;
 			clearInterval(self.interval);
 			self.counter = this.config.delay;
-			//console.log("update dom");
 			self.updateDom(this.config.animationSpeed);
 
         	self.interval = setInterval(function () {
             		self.counter -= 1000;
             		if (self.counter <= 0) {
 				clearInterval(self.interval);
-				//console.log("interval reset and send update !");
 				self.sendSocketNotification("UPDATE");
             		}
         	}, 1000);
