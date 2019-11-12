@@ -183,4 +183,78 @@ Module.register("MMM-AirParif", {
             		}
         	}, 1000);
         },
+
+/* telegrambot commands */
+
+	getCommands: function () {
+	  return [
+		{
+        		command: "air",
+        		callback: "telegramCommand",
+        		description: "Affiche la qualité de l'air"
+      		}
+	  ]
+	},
+
+  	telegramCommand: function(command, handler) {
+		if (command == "air") this.cmd_air(handler);
+  	},
+
+	cmd_air: function(handler) {
+		var self = this
+		var text = ""
+		var end = false
+		var result = this.result
+
+		if(Object.keys(result).length > 0) {
+			for (var i in result.ville) {
+				var ind = this.result.data[i].indice;
+				var ville = this.result.ville[i];
+				var indText = "";
+				text += "* " + ville + ":* "
+
+				switch (true) {
+					case ind <= 0:
+						indText = "Vide";
+						break;
+					case ind > 0 && ind < 25:
+						indText = "Très Faible";
+						break;
+					case ind >= 25 && ind < 50:
+						indText = "Faible";
+						break;
+					case ind >= 50 && ind < 75:
+						indText = "Moyen";
+						break;
+					case ind >= 75 && ind < 100:
+						indText = "Elevé";
+						break;
+					case ind >= 100:
+						indText = "Très Elevé";
+						break;
+				}
+				text += "Indice " + ind + " (" + indText + ") "
+
+				if (this.config.polluants) {
+					var polluants = this.result.data[i].polluants;
+
+					Object.keys(polluants).forEach(function (what) {
+						if (what == 0) {
+							if (Object.keys(polluants).length > 1) text += " -- Polluants: "
+							else text += " -- Polluant: "
+						}
+						text += polluants[what]
+						if (what != Object.keys(polluants).length-1)  text += ","
+					});
+				}
+				text += "\n"
+			}
+		} else {
+			text += "*Erreur: Aucune Donnée*\n"
+		}
+
+		handler.reply('TEXT', text, {parse_mode:'Markdown'})
+
+	},
+
 });
