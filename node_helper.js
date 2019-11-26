@@ -71,16 +71,20 @@ module.exports = NodeHelper.create({
 	getAir: function(url) {
 		var self = this;
 		request({ url: url, method: "GET" }, function(error, response, body) {
-			// Lets convert the body into JSON
-			var result = JSON.parse(body);
-			if (!error && response.statusCode == 200) {
+			var result
+			if (!error && response.statusCode == 200) { 
+				result = JSON.parse(body);
 				if (result.status == "error") {
-					console.log("[AirParif][API] Erreur > "+ response.statusCode + " -- ", result)
+					console.log("[AirParif][API] Erreur > "+ response.statusCode + " -- " + result)
 				} else {
 					self.data = result;
 				}
 			} else {
-				console.log("[AirParif][API] ", result)
+				if (body) { 
+					result = JSON.parse(body);
+					if (result.erreur) console.log("[AirParif][API] Erreur: " + result.erreur)
+				}
+				else console.log("[AirParif][API] Erreur: Aucune Donnée trouvé")
 			}
 		});
 	},
@@ -96,16 +100,18 @@ module.exports = NodeHelper.create({
 		var url = 'https://geo.api.gouv.fr/communes?codePostal=' + codepostal + '&nom=' + self.Village[i] + '&fields=nom,code,codesPostaux&format=json';
 		request.get({ url: url, json: true, headers: {'User-Agent': 'request'} }, (err, res, data) => {
     			if (err) {
-      				console.log("[AirParif][INSEE] Erreur:", err);
-    			} else if (res.statusCode !== 200) {
-      				console.log("[AirParif][INSEE] Erreur Status Code:", res);
-    			} else {
-        			if (!data[0]) console.log("[AirParif][INSEE] Erreur Aucune Données !")
-        			else {
-					self.codeInsee[i] = data[0].code;
-					self.Village[i] = data[0].nom;
-				}
-    			}
+      				console.log("[AirParif][INSEE] " + err);
+			} else {
+					if (res.statusCode !== 200) console.log("[AirParif][INSEE] Erreur Status Code:", res);
+    					else {
+        					if (!data[0]) {
+							console.log("[AirParif][INSEE] Erreur Aucune Données !")
+						} else {
+							self.codeInsee[i] = data[0].code;
+							self.Village[i] = data[0].nom;
+						}
+    					}
+			}
 		});
 	},
 

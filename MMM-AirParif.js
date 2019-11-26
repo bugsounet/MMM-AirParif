@@ -7,8 +7,7 @@ Module.register("MMM-AirParif", {
 		key: "",
 		ville: [],
 		polluants: true,
-		delay: 60 * 60 * 1000,
-		animationSpeed: 1000
+		update: 60
 	},
 
 	start: function () {
@@ -172,8 +171,8 @@ Module.register("MMM-AirParif", {
         UpdateInterval: function () {
         	var self = this;
 			clearInterval(self.interval);
-			self.counter = this.config.delay;
-			self.updateDom(this.config.animationSpeed);
+			self.counter = this.config.update * 60 * 1000;
+			self.updateDom(1000);
 
         	self.interval = setInterval(function () {
             		self.counter -= 1000;
