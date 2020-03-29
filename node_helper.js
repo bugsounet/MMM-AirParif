@@ -89,30 +89,35 @@ module.exports = NodeHelper.create({
 		});
 	},
 
-	/*** Requete code INSEE vers geo.api.gouv.fr et formate la ville ***/
-	insee: function(ville,i) {
-		var self = this;
-		var str = ville
-                var split = str.split(',');
-                var codepostal = split[0];
-		self.Village[i] = split[1];
-
-		var url = 'https://geo.api.gouv.fr/communes?codePostal=' + codepostal + '&nom=' + self.Village[i] + '&fields=nom,code,codesPostaux&format=json';
-		request.get({ url: url, json: true, headers: {'User-Agent': 'request'} }, (err, res, data) => {
-    			if (err) {
-      				console.log("[AirParif][INSEE] " + err);
-			} else {
-					if (res.statusCode !== 200) console.log("[AirParif][INSEE] Erreur Status Code:", res);
-    					else {
-        					if (!data[0]) {
-							console.log("[AirParif][INSEE] Erreur Aucune Données !")
-						} else {
-							self.codeInsee[i] = data[0].code;
-							self.Village[i] = data[0].nom;
-						}
-    					}
-			}
-		});
+  /*** Requete code INSEE vers geo.api.gouv.fr et formate la ville ***/
+  insee: function(ville,i) {
+    var self = this;
+    var str = ville
+    var split = str.split(',');
+    var codepostal = split[0];
+    self.Village[i] = split[1];
+    if(codepostal.substring(0,2) == "75") {
+      let dep = codepostal.substring(0,2)
+      let arr = codepostal.substring(3,5)
+      self.codeInsee[i] = dep+"1"+arr
+    } else {
+      var url = 'https://geo.api.gouv.fr/communes?codePostal=' + codepostal + '&nom=' + self.Village[i] + '&fields=nom,code,codesPostaux&format=json';
+      request.get({ url: url, json: true, headers: {'User-Agent': 'request'} }, (err, res, data) => {
+        if (err) {
+          console.log("[AirParif][INSEE] " + err);
+        } else {
+          if (res.statusCode !== 200) console.log("[AirParif][INSEE] Erreur Status Code:", res);
+          else {
+            if (!data[0]) {
+              console.log("[AirParif][INSEE] Erreur Aucune Données !")
+            } else {
+              self.codeInsee[i] = data[0].code;
+              self.Village[i] = data[0].nom;
+            }
+          }
+        }
+      });
+    }
 	},
 
 	/*** Reception notification par Socket ***/
