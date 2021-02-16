@@ -45,3 +45,6 @@ Il faudra cocher cette case lors de la demande
 ### Remarques: 
 * Il est possible de demander l'affichage plusieures villes (voir exemple de configuration)
 * AirParif est uniquement conçu pour afficher les villes en île-de-france
+
+## Support et aide
+Toute aide peut-être demandé sur [le forum 4th Party Modules](http://forum.bugsounet.fr)
