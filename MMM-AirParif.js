@@ -1,5 +1,6 @@
 /* Magic Mirror Module: MMM-AirParif
- * by Aldarande
+ *  Version 2.0.0
+ *  by Aldarande
  * compatible avec le version API Airparif 2.0.0 
  */
 
