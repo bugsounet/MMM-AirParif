@@ -3,7 +3,7 @@
 Affiche la qualité de l'air du jour depuis l'API de AirParif
 
 ## Screenshoot
-![](https://github.com/bugsounet/MMM-AirParif/blob/master/screenshoot.jpg)
+![](https://github.com/Aldarande/MMM-AirParif/blob/master/screenshot_airparif.jpg)
 
 ## Installation
 ```
