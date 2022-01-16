@@ -1,37 +1,92 @@
-.ville,
-.indice,
+.ville {
+  color:white;
+  top:0;
+  vertical-align: top;
+  text-align: left;
+  padding-right: 5px;
+  font-size: 1em;
+  }
+.table{
+	  text-align: justify;
+}
+.indiceP{
+	color:silver;
+  top:0;
+  vertical-align: top;
+  text-align: left;
+  padding-right: 5px;
+  font-size : 0.9em;
+}
+.indice{
+	text-align: left;
+}
 .polluants {
   text-align: left;
 }
 
-
 .ville:before {
   font-family: "weathericons";
-  content: "\f062";
+  content: "\f082";
   padding-left: 10px;
-  padding-right: 10px
-}
-.ville.Moyen:before,
-.ville.Eleve:before {
-  content: "\f074";
-}
-.ville.TEleve:before {
-  content: "\f071";
+  padding-right: 10px;
+  color : floralwhite;
 }
 
+th {
+	font-size: 0.8em;
+	//text-align : start;
+	//text-indent : 10%;
+	color : lightgray;
+}
+td {
+	font-size: 0.6em;
+	color : lightsteelblue;
+}
+th:before{
+	font-family: "weathericons";
+	content: "\f063";
+	color : white;
+	padding-left: 5px;
+	padding-right: 5px;	
+	font-size : 0.7em;
+}
+.Bon {
+  //color: #50f0e6;
+   font-weight: lighter;
+}
+.Moyen {
+  //color: #50ccaa;
+   font-weight: Medium;
+}
+.Dégradé{
+  animation: 3s linear infinite condemed_blink_effect;
+  //color: #f0e641;
+font-weight: Semi Bold;
+}
+.Mauvais {
+  animation: 3s linear infinite condemed_blink_effect;
+  //color: #ff5050;
+   font-weight: Bold;
+}
+.TrèsMauvais {
+  animation: 1s linear infinite condemed_blink_effect;
+  //color: #960032;
+  font-weight: Extra Bold;
+}
+.ExtrêmementMauvais {
+  animation: 0.3s linear infinite condemed_blink_effect;
+  //color: #7d2181;
+     font-weight: Black ;
+}
 
-.indice.TFaible {
-  color: #009966;
-}
-.indice.Faible {
-  color: #6e9900;
-}
-.indice.Moyen {
-  color: #ffde33;
-}
-.indice.Eleve {
-  color: #ff9933;
-}
-.indice.TEleve {
-  color: #960018;
+@keyframes condemed_blink_effect {
+  0% {
+    visibility: hidden;
+  }
+  50% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
 }
