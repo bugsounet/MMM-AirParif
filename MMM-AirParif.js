@@ -110,9 +110,8 @@ Module.register("MMM-AirParif", {
 							PolCellTM.className = "indice " + ind[1][Object.keys(ind[0])[j]].replace(/ /g, "");
 							PolCellTM.innerHTML =  ind[1][Object.keys(ind[0])[j]];
 							PolLig.appendChild(PolCellTM);
-
-							dataTable.appendChild(PolLig);
 							}
+							dataTable.appendChild(PolLig);							
 					}			
 				}
 			}
