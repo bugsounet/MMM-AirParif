@@ -1,20 +1,26 @@
 /* Magic Mirror Module: MMM-AirParif
- * Version: 1.0.0
+ * by Aldarande
+ * compatible avec le version API Airparif 2.0.0 
  */
+
+var log;
 
 Module.register("MMM-AirParif", {
 	defaults: {
 		key: "",
 		ville: [],
-		polluants: true,
-		update: 60
+		polluants: false,
+		demain : false,
+		update: 60,
+		demain: true,
 	},
 
 	start: function () {
 		Log.info("Starting module: " + this.name);
 		this.config = this.configAssignment({}, this.defaults, this.config);
 		this.loaded = false;
-		this.result = {}
+		this.result = {};
+		
 	},
 
 	getStyles: function () {
@@ -33,7 +39,7 @@ Module.register("MMM-AirParif", {
 		var self = this;
 		var result = this.result;
 		var wrapper = document.createElement("div");
-
+		
 		if (self.config.key == "") {
 			wrapper.innerHTML = "Erreur: Merci de définir la Clé (key).";
 			wrapper.className = "dimmed light small";
@@ -45,76 +51,70 @@ Module.register("MMM-AirParif", {
 			wrapper.className = "dimmed light small";
 			return wrapper;
 		}
-
+		
 		// Start building table.
 		var dataTable = document.createElement("table");
 		dataTable.className = "small data";
+		
+		if(Object.keys(result).length > 0) {		   
+				for (var i in result.ville) {			
+				var Row = document.createElement("tr");
+				var ville = result.ville[i];
+				var ind = result.data[i];
+				
+				var indClass = "";
+				var villeCell = document.createElement("th");
+				villeCell.className = "ville " + ville;
+				villeCell.innerHTML = ville + " : ";
+				Row.appendChild(villeCell);
+				
+				var indCellTD = document.createElement("td");
+				indCellTD.className = "indiceP " + ind[0].indice.replace(/ /g, "");
+				indCellTD.innerHTML = ind[0].indice;
+				Row.appendChild(indCellTD);	
+				
 
-		if(Object.keys(result).length > 0) {
-		   for (var i in result.ville) {
-			var Row = document.createElement("tr");
-			var ind = this.result.data[i].indice;
-			var ville = this.result.ville[i];
-			var indClass = "";
+				if (this.config.demain == true) {
 
-			switch (true) {
-			case ind <= 0:
-				indClass = "empty";
-				break;
-			case ind > 0 && ind < 25:
-				indClass = "TFaible";
-				break;
-			case ind >= 25 && ind < 50:
-				indClass = "Faible";
-				break;
-			case ind >= 50 && ind < 75:
-				indClass = "Moyen";
-				break;
-			case ind >= 75 && ind < 100:
-				indClass = "Eleve";
-				break;
-			case ind >= 100:
-				indClass = "TEleve";
-				break;
+				var indCellTM = document.createElement("td");
+				indCellTM.className = "indiceP " + ind[1].indice.replace(/ /g, "");
+				indCellTM.innerHTML = ind[1].indice;
+				Row.appendChild(indCellTM);	
+				}
+
+				dataTable.appendChild(Row);
+				
+				if (this.config.polluants){
+
+						for (var j = 1 ; j < Object.keys(ind[0]).length-1 ; j++) {
+
+							var PolLig = document.createElement("tr");
+							PolLig.className = "Polluants" ; //Object.keys(ind[0])[j];
+
+							var PolCellLig = document.createElement("th");
+							PolCellLig.style.listStyleType = "none";
+							PolCellLig.className = "ligne";
+							PolCellLig.innerHTML = Object.keys(ind[0])[j];
+							PolLig.appendChild(PolCellLig);
+							
+							var PolCellTD = document.createElement("td");
+							PolCellTD.style.listStyleType = "none";
+							PolCellTD.className = "indice " + ind[0][Object.keys(ind[0])[j]].replace(/ /g, "");
+							PolCellTD.innerHTML =  ind[0][Object.keys(ind[0])[j]];
+							PolLig.appendChild(PolCellTD);
+
+							if (this.config.demain == true) {
+							var PolCellTM = document.createElement("td");
+							PolCellTM.style.listStyleType = "none";
+							PolCellTM.className = "indice " + ind[1][Object.keys(ind[0])[j]].replace(/ /g, "");
+							PolCellTM.innerHTML =  ind[1][Object.keys(ind[0])[j]];
+							PolLig.appendChild(PolCellTM);
+
+							dataTable.appendChild(PolLig);
+							}
+					}			
+				}
 			}
-
-			var villeCell = document.createElement("td");
-			villeCell.className = "ville " + indClass;
-			villeCell.innerHTML = ville;
-			Row.appendChild(villeCell);
-
-			var indCell = document.createElement("td");
-			indCell.className = "indice " + indClass;
-			indCell.innerHTML = ind;
-			Row.appendChild(indCell);
-
-			dataTable.appendChild(Row);
-
-			if (this.config.polluants) {
-				var polluants = this.result.data[i].polluants;
-				var polRow = "";
-				var polVilleCell = "";
-				var polIndCell = "";
-
-				Object.keys(polluants).forEach(function (what) {
-					polRow = document.createElement("tr");
-
-					polVilleCell = document.createElement("td");
-					if (what == 0) {
-						polVilleCell.className = "xsmall iaqi value " + indClass;
-						if (Object.keys(polluants).length > 1) polVilleCell.innerHTML = "Polluants :"
-						else polVilleCell.innerHTML = "Polluant :"
-					}
-					polRow.appendChild(polVilleCell);
-
-					polWhatCell = document.createElement("td");
-					polWhatCell.className = "xsmall iaqi value " + indClass;
-					polWhatCell.innerHTML = polluants[what];
-					polRow.appendChild(polWhatCell);
-					dataTable.appendChild(polRow);
-				});
-			}
-		   }
 		} else {
 			var row1 = document.createElement("tr");
 			dataTable.appendChild(row1);
@@ -124,7 +124,7 @@ Module.register("MMM-AirParif", {
 			messageCell.className = "bright";
 			row1.appendChild(messageCell);
 		}
-
+	
 		wrapper.appendChild(dataTable);
 		return wrapper;
 	},
@@ -139,8 +139,8 @@ Module.register("MMM-AirParif", {
 	socketNotificationReceived: function (notification, payload) {
 		var self = this
 		if (notification === "RESULT" ) {
-			this.result = payload
-			this.loaded = true
+			this.result = payload;
+			this.loaded = true;
 			this.UpdateInterval();
 		}
 	},
@@ -181,79 +181,5 @@ Module.register("MMM-AirParif", {
 				self.sendSocketNotification("UPDATE");
             		}
         	}, 1000);
-        },
-
-/* telegrambot commands */
-
-	getCommands: function () {
-	  return [
-		{
-        		command: "air",
-        		callback: "telegramCommand",
-        		description: "Affiche la qualité de l'air"
-      		}
-	  ]
-	},
-
-  	telegramCommand: function(command, handler) {
-		if (command == "air") this.cmd_air(handler);
-  	},
-
-	cmd_air: function(handler) {
-		var self = this
-		var text = ""
-		var end = false
-		var result = this.result
-
-		if(Object.keys(result).length > 0) {
-			for (var i in result.ville) {
-				var ind = this.result.data[i].indice;
-				var ville = this.result.ville[i];
-				var indText = "";
-				text += "* " + ville + ":* "
-
-				switch (true) {
-					case ind <= 0:
-						indText = "Vide";
-						break;
-					case ind > 0 && ind < 25:
-						indText = "Très Faible";
-						break;
-					case ind >= 25 && ind < 50:
-						indText = "Faible";
-						break;
-					case ind >= 50 && ind < 75:
-						indText = "Moyen";
-						break;
-					case ind >= 75 && ind < 100:
-						indText = "Elevé";
-						break;
-					case ind >= 100:
-						indText = "Très Elevé";
-						break;
-				}
-				text += "Indice " + ind + " (" + indText + ") "
-
-				if (this.config.polluants) {
-					var polluants = this.result.data[i].polluants;
-
-					Object.keys(polluants).forEach(function (what) {
-						if (what == 0) {
-							if (Object.keys(polluants).length > 1) text += " -- Polluants: "
-							else text += " -- Polluant: "
-						}
-						text += polluants[what]
-						if (what != Object.keys(polluants).length-1)  text += ","
-					});
-				}
-				text += "\n"
-			}
-		} else {
-			text += "*Erreur: Aucune Donnée*\n"
-		}
-
-		handler.reply('TEXT', text, {parse_mode:'Markdown'})
-
-	},
-
+        },	
 });
