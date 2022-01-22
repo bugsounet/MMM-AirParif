@@ -13,7 +13,7 @@ Module.register("MMM-AirParif", {
     ville: [],
     polluants: false,
     demain: false,
-    update: 60*60*1000,
+    update: 60*60,
   },
 
   start: function () {
@@ -36,89 +36,102 @@ Module.register("MMM-AirParif", {
 
   getDom: function () {
     var result = this.result
-    var wrapper = document.createElement("div")
+
+    var AirParif = document.createElement("div")
+    AirParif.className = "small data"
+    AirParif.id = "AirParif"
 
     if (this.config.key == "") {
-      wrapper.innerHTML = "Erreur: Merci de définir la Clé (key)."
-      wrapper.className = "dimmed light small"
-      return wrapper
+      AirParif.innerHTML = "Erreur: Merci de définir la Clé (key)."
+      AirParif.className = "dimmed light small"
+      return AirParif
     }
 
     if (!this.loaded) {
-      wrapper.innerHTML = this.translate("LOADING");
-      wrapper.className = "dimmed light small";
-      return wrapper
+      AirParif.innerHTML = this.translate("LOADING");
+      AirParif.className = "dimmed light small";
+      return AirParif
     }
 
-    // Start building table.
-    var dataTable = document.createElement("table")
-    dataTable.className = "small data"
-    if (result && Object.entries(result).length) { // @todo scan array data present
+    // Starting build new version module
+    if (result && Object.entries(result).length) {
       Object.entries(result).forEach(([code, data]) => {
-        var Row = document.createElement("tr")
-        var ville = data.ville
-        var ind = data.data
+        var datax = document.createElement("div")
+        datax.id = "AirParif_datax"
+        datax.className= data.ville
 
-        var indClass = ""
-        var villeCell = document.createElement("th")
-        villeCell.className = "ville " + ville
-        villeCell.innerHTML = ville + ": "
-        Row.appendChild(villeCell)
+        var ville = document.createElement("div")
+        ville.id = "AirParif_ville"
+        ville.innerHTML = data.ville + ": "
+        datax.appendChild(ville)
 
-        var indCellTD = document.createElement("td")
-        indCellTD.className = "indiceP " + ind[0].indice.replace(/ /g, "")
-        indCellTD.innerHTML = ind[0].indice
-        Row.appendChild(indCellTD)
-
-        if (this.config.demain == true && (ind[1] && ind[1].indice)) {
-          var indCellTM = document.createElement("td")
-          indCellTM.className = "indiceP " + ind[1].indice.replace(/ /g, "")
-          indCellTM.innerHTML = ind[1].indice
-          Row.appendChild(indCellTM)
+        if (!this.config.polluants) {
+          var indice = document.createElement("div")
+          indice.className = data.data[0].indice.replace(/ /g, "")
+          indice.id = "AirParif_indicePOnly"
+          indice.textContent = data.data[0].indice
+          datax.appendChild(indice)
         }
 
-        dataTable.appendChild(Row)
+        if (this.config.polluants) {
+          var polluants = document.createElement("div")
+          polluants.id = "AirParif_Days"
+          datax.appendChild(polluants)
+          var today = document.createElement("div")
+          today.id = "AirParif_Polluants"
 
-        if (this.config.polluants) { //@todo better
-          for (var j = 1 ; j < Object.keys(ind[0]).length-1 ; j++) {
-            var PolLig = document.createElement("tr")
-            PolLig.className = "Polluants"
+          var dateIndice = document.createElement("div")
+          dateIndice.className = data.data[0].indice.replace(/ /g, "")
+          dateIndice.id = "AirParif_indiceP"
+          dateIndice.textContent = "Aujourd'hui: " + data.data[0].indice
+          today.appendChild(dateIndice)
 
-            var PolCellLig = document.createElement("th")
-            PolCellLig.style.listStyleType = "none"
-            PolCellLig.className = "lignePolluant"
-            PolCellLig.innerHTML = Object.keys(ind[0])[j]
-            PolLig.appendChild(PolCellLig)
+          var tomorrow = document.createElement("div")
+          tomorrow.id = "AirParif_Polluants"
+          Object.entries(data.data[0]).forEach(([poluant,level], nb) => {
+            if (nb && (nb !== Object.keys(data.data[0]).length-1)) {
+              var typeToday = document.createElement("div")
+              typeToday.style.listStyleType = "none"
+              typeToday.id = "AirParif_polluant"
+              typeToday.innerHTML = poluant
+              today.appendChild(typeToday)
 
-            var PolCellTD = document.createElement("td")
-            PolCellTD.style.listStyleType = "none"
-            PolCellTD.className = "indice " + ind[0][Object.keys(ind[0])[j]].replace(/ /g, "")
-            PolCellTD.innerHTML =  ind[0][Object.keys(ind[0])[j]]
-            PolLig.appendChild(PolCellTD)
-
-            if (this.config.demain == true && (ind[1] && ind[1].indice)) {
-              var PolCellTM = document.createElement("td")
-              PolCellTM.style.listStyleType = "none"
-              PolCellTM.className = "indice " + ind[1][Object.keys(ind[0])[j]].replace(/ /g, "")
-              PolCellTM.innerHTML =  ind[1][Object.keys(ind[0])[j]]
-              PolLig.appendChild(PolCellTM)
+              var valueToday = document.createElement("div")
+              valueToday.className = level.replace(/ /g, "")
+              valueToday.id = "AirParif_indice"
+              valueToday.innerHTML = level
+              typeToday.appendChild(valueToday)
             }
-            dataTable.appendChild(PolLig)
+          })
+          if (this.config.demain && (data.data[1] && data.data[1].indice)) {
+            var dateIndice = document.createElement("div")
+            dateIndice.className = data.data[1].indice.replace(/ /g, "")
+            dateIndice.id = "AirParif_indiceP"
+            dateIndice.textContent = "Demain: " + data.data[1].indice
+            tomorrow.appendChild(dateIndice)
+            Object.entries(data.data[1]).forEach(([poluant,level], nb) => {
+              if (nb && (nb !== Object.keys(data.data[1]).length-1)) {
+                var typeTomorrow = document.createElement("div")
+                typeTomorrow.style.listStyleType = "none"
+                typeTomorrow.id = "AirParif_polluant"
+                typeTomorrow.innerHTML = poluant
+                tomorrow.appendChild(typeTomorrow)
+
+                var valueTomorrow = document.createElement("div")
+                valueTomorrow.className = level.replace(/ /g, "")
+                valueTomorrow.id = "AirParif_indice"
+                valueTomorrow.innerHTML = level
+                typeTomorrow.appendChild(valueTomorrow)
+              }
+            })
           }
+          polluants.appendChild(today)
+          polluants.appendChild(tomorrow)
         }
+        AirParif.appendChild(datax)
       })
-    } else {
-      var row1 = document.createElement("tr")
-      dataTable.appendChild(row1)
-
-      var messageCell = document.createElement("td")
-      messageCell.innerHTML = "Erreur: Aucune Donnée"
-      messageCell.className = "bright"
-      row1.appendChild(messageCell)
     }
-
-    wrapper.appendChild(dataTable)
-    return wrapper
+    return AirParif
   },
 
   notificationReceived: function (notification, payload) {

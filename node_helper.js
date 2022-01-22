@@ -152,6 +152,7 @@ module.exports = NodeHelper.create({
         this.config = payload
         if (this.config.debug) logAIR = (...args) => { console.log("[AIRPARIF]", ...args) }
         console.log("[AIRPARIF] " + require('./package.json').name + " Version:", require('./package.json').version)
+        logAIR("Config:", this.config)
         break
     }
   },

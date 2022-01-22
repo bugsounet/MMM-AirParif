@@ -1,81 +1,123 @@
-.ville {
+#AirParif {
+  display: inline-block;
+}
+
+#AirParif_ville {
   color:white;
   top:0;
   vertical-align: top;
   text-align: left;
   padding-right: 5px;
   font-size: 100%;
-  }
-.table{
-	  text-align: justify;
+  display: flex;
+  margin-bottom: 4px;
 }
-.indiceP{
-	color:silver;
+
+#AirParif_indiceP {
+  color:silver;
   top:0;
   vertical-align: top;
   text-align: left;
   padding-right: 5px;
-  font-size : 90%;
-}
-.indice{
-	text-align: left;
-	font-size: 60%;
-	color : lightsteelblue;
-}
-.polluants {
-  text-align: left;
+  color: silver;
+  /*font-size: 90%;*/
+  place-self: flex-end;
+  font-size: 0.8em;
 }
 
-.ville:before {
+#AirParif_indicePOnly {
+  color:silver;
+  top:0;
+  vertical-align: top;
+  text-align: left;
+  padding-right: 5px;
+  color: silver;
+  /*font-size: 90%;*/
+  place-self: flex-end;
+  font-size: 0.8em;
+  margin-left: 10px;
+}
+
+#AirParif_indice {
+  text-align: left;
+  font-size: 80%;
+  color : lightsteelblue;
+  align-self: center;
+  margin-left: 5px;
+}
+
+#AirParif_Polluants {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+#AirParif_ville:before {
   font-family: "weathericons";
   content: "\f082";
-  padding-left: 10px;
   padding-right: 10px;
   color : floralwhite;
 }
 
-.lignePolluant {
-	font-size: 0.8em;
-	//text-align : start;
-	//text-indent : 10%;
-	color : lightgray;
+#AirParif_polluant {
+  font-size: 0.8em;
+  color : lightgray;
+  display: flex;
+  align-self: center;
 }
 
-.lignePolluant:before{
-	font-family: "weathericons";
-	content: "\f063";
-	color : white;
-	padding-left: 5px;
-	padding-right: 5px;	
-	font-size : 70%;
+#AirParif_polluant:before {
+  font-family: "weathericons";
+  content: "\f063";
+  color : white;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size : 70%;
+  align-self: center;
 }
-.Bon {
-  //color: #50f0e6;
+
+#AirParif_Days {
+  display: flex
+}
+
+#AirParif_indicePOnly.Bon,
+#AirParif_indice.Bon,
+#AirParif_indiceP.Bon {
    font-weight: lighter;
 }
-.Moyen {
-  //color: #50ccaa;
+
+#AirParif_indicePOnly.Moyen,
+#AirParif_indice.Moyen,
+#AirParif_indiceP.Moyen {
    font-weight: Medium;
 }
-.Dégradé{
+
+#AirParif_indicePOnly.Dégradé,
+#AirParif_indice.Dégradé,
+#AirParif_indiceP.Dégradé{
   animation: 3s linear infinite condemed_blink_effect;
-  //color: #f0e641;
-font-weight: Semi Bold;
+  font-weight: Semi Bold;
 }
-.Mauvais {
+
+#AirParif_indicePOnly.Mauvais,
+#AirParif_indice.Mauvais,
+#AirParif_indiceP.Mauvais {
   animation: 3s linear infinite condemed_blink_effect;
-  //color: #ff5050;
-   font-weight: Bold;
+  font-weight: Bold;
 }
-.TrèsMauvais {
+
+#AirParif_indicePOnly.TrèsMauvais,
+#AirParif_indice.TrèsMauvais,
+#AirParif_indiceP.TrèsMauvais {
   animation: 1s linear infinite condemed_blink_effect;
-  //color: #960032;
   font-weight: Extra Bold;
 }
-.ExtrêmementMauvais {
+
+#AirParif_indicePOnly.ExtrêmementMauvais,
+#AirParif_indice.ExtrêmementMauvais,
+#AirParif_indiceP.ExtrêmementMauvais {
   animation: 0.3s linear infinite condemed_blink_effect;
-  //color: #7d2181;
-     font-weight: Black ;
+  font-weight: Black ;
 }
 
 @keyframes condemed_blink_effect {
@@ -88,4 +130,8 @@ font-weight: Semi Bold;
   100% {
     visibility: visible;
   }
+}
+
+#AirParif_datax {
+  margin-bottom: 10px;
 }
