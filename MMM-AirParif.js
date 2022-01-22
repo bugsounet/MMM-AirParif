@@ -86,7 +86,7 @@ Module.register("MMM-AirParif", {
 
             var PolCellLig = document.createElement("th")
             PolCellLig.style.listStyleType = "none"
-            PolCellLig.className = "ligne"
+            PolCellLig.className = "lignePolluant"
             PolCellLig.innerHTML = Object.keys(ind[0])[j]
             PolLig.appendChild(PolCellLig)
 
