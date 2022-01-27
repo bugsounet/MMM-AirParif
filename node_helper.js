@@ -107,7 +107,7 @@ module.exports = NodeHelper.create({
         let arr = codepostal.substring(3,5)
         let code = "751"+arr
         tmpData = {
-          ville: ville,
+          ville: "Paris",
           codepostal: codepostal,
           data: "Les données de AirParif seront ici ;)"
         }
