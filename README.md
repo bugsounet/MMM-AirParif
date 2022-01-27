@@ -15,7 +15,7 @@ npm install
 
 ## Clé API
 
-Afin d'utiliser le module MMM-AirParif, il est neccessaire de demander une clé API via ce [formulaire](https://www.airparif.asso.fr/interface-de-programmation-applicative).
+Afin d'utiliser le module MMM-AirParif, il est neccessaire de demander une clé API via ce [formulaire](https://www.airparif.asso.fr/interface-de-programmation-applicative).<br>
 Vous pouvez cocher toutes les cases de choix "Indices du jour et du lendemain", "Alerte*", "Carte temps réél haute définition*" et "Pollens*".
 * En vue de développement ...
 
@@ -48,7 +48,7 @@ Il faudra cocher cette case lors de la demande
 * Il est possible de demander l'affichage plusieures villes (voir exemple de configuration)
 * AirParif est uniquement conçu pour afficher les villes en île-de-france
 
-### En cas de souci: ce [forum](http://forum.bugsounet.fr) est disponible
+### En cas de souci: ce [forum](http://forum.bugsounet.fr) est à votre disposition
 
-### Merci @Aldarande pour sa participation pour la realisation de la V2 de ce module.
+### Merci @Aldarande pour sa participation pour la réalisation de la v2 de ce module.
 
