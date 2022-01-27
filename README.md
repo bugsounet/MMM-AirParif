@@ -32,7 +32,7 @@ Il faudra cocher cette case lors de la demande
       ville: ["75013,Paris", "92400,courbevoie"], // Mettre "CP,Nom de Ville" séparer par ,
       polluants: true,
       demain: true,
-      update: 10,
+      update: 60,
     }
   },
 ```
@@ -40,7 +40,7 @@ Il faudra cocher cette case lors de la demande
 * `key`: mettre votre clé fourni par AirParif
 * `ville`: code postal et ville à afficher. Doit être sous la forme : ["code postal,ville"]
 * `polluants`: affiche le nom des polluants -> true : affiche / false : n'affiche pas
-* `update`: Temps avant mise à jour des informations en minutes
+* `update`: Temps avant mise à jour des informations en secondes
 * `demain`: pour afficher les statistiques du lendemain
 * `polluant`: pour afficher les détailles des polluants
 

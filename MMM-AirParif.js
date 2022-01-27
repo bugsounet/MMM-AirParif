@@ -13,7 +13,7 @@ Module.register("MMM-AirParif", {
     ville: [],
     polluants: false,
     demain: false,
-    update: 10,
+    update: 10
   },
 
   start: function () {
