@@ -30,7 +30,7 @@ module.exports = NodeHelper.create({
     logAIR("getData SCAN Effectué")
     if (Object.keys(this.data).length) this.sendSocketNotification("RESULT", this.data) // envoie les donnnées
     else this.sendSocketNotification("RESULT", false) // pas de villes retournées (erreur)
-    setInterval(() => { this.getUpdate() }, this.config.update*1000)
+    setInterval(() => { this.getUpdate() }, this.config.update*60000)
   },
 
   /*** Update Script **/
