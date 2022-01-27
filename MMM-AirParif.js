@@ -91,7 +91,7 @@ Module.register("MMM-AirParif", {
           Object.entries(data.data[0]).forEach(([poluant,level], nb) => {
             if (nb && (nb !== Object.keys(data.data[0]).length-1)) {
               var typeToday = document.createElement("div")
-              typeToday.style.listStyleType = "none"
+              //typeToday.style.listStyleType = "none"
               typeToday.id = "AirParif_polluant"
               typeToday.innerHTML = poluant
               today.appendChild(typeToday)
@@ -112,9 +112,8 @@ Module.register("MMM-AirParif", {
             Object.entries(data.data[1]).forEach(([poluant,level], nb) => {
               if (nb && (nb !== Object.keys(data.data[1]).length-1)) {
                 var typeTomorrow = document.createElement("div")
-                typeTomorrow.style.listStyleType = "none"
-                typeTomorrow.id = "AirParif_polluant"
-                typeTomorrow.innerHTML = poluant
+                //typeTomorrow.style.listStyleType = "none"
+                typeTomorrow.id = "AirParif_next"
                 tomorrow.appendChild(typeTomorrow)
 
                 var valueTomorrow = document.createElement("div")

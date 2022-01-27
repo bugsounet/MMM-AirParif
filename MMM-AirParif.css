@@ -40,7 +40,6 @@
 
 #AirParif_indice {
   text-align: left;
-  font-size: 80%;
   color : lightsteelblue;
   align-self: center;
   margin-left: 5px;
@@ -63,7 +62,7 @@
   font-size: 0.8em;
   color : lightgray;
   display: flex;
-  align-self: center;
+  align-self: stretch;
 }
 
 #AirParif_polluant:before {
@@ -83,13 +82,19 @@
 #AirParif_indicePOnly.Bon,
 #AirParif_indice.Bon,
 #AirParif_indiceP.Bon {
-   font-weight: lighter;
+  font-weight: lighter;
+  text-align-last: right;
+  align-self: end;
+  flex: auto;
 }
 
 #AirParif_indicePOnly.Moyen,
 #AirParif_indice.Moyen,
 #AirParif_indiceP.Moyen {
-   font-weight: Medium;
+  font-weight: Medium;
+  text-align-last: right;
+  align-self: end;
+  flex: auto;
 }
 
 #AirParif_indicePOnly.Dégradé,
@@ -97,6 +102,9 @@
 #AirParif_indiceP.Dégradé{
   animation: 3s linear infinite condemed_blink_effect;
   font-weight: Semi Bold;
+  text-align-last: right;
+  align-self: end;
+  flex: auto;
 }
 
 #AirParif_indicePOnly.Mauvais,
@@ -104,6 +112,9 @@
 #AirParif_indiceP.Mauvais {
   animation: 3s linear infinite condemed_blink_effect;
   font-weight: Bold;
+  text-align-last: right;
+  align-self: end;
+  flex: auto;
 }
 
 #AirParif_indicePOnly.TrèsMauvais,
@@ -111,6 +122,9 @@
 #AirParif_indiceP.TrèsMauvais {
   animation: 1s linear infinite condemed_blink_effect;
   font-weight: Extra Bold;
+  text-align-last: right;
+  align-self: end;
+  flex: auto;
 }
 
 #AirParif_indicePOnly.ExtrêmementMauvais,
@@ -118,6 +132,9 @@
 #AirParif_indiceP.ExtrêmementMauvais {
   animation: 0.3s linear infinite condemed_blink_effect;
   font-weight: Black ;
+  text-align-last: right;
+  align-self: end;
+  flex: auto;
 }
 
 @keyframes condemed_blink_effect {
@@ -134,4 +151,8 @@
 
 #AirParif_datax {
   margin-bottom: 10px;
+}
+
+#AirParif_next {
+ font-size: 0.8rem;
 }

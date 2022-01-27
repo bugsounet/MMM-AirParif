@@ -1,14 +1,14 @@
 # MMM-AirParif
 
-Affiche la qualité de l'air du jour depuis l'API de AirParif
+Affiche la qualité de l'air du jour depuis l'API de AirParif (avec l'APIv2)
 
 ## Screenshoot
-![](https://github.com/Aldarande/MMM-AirParif/blob/master/screenshot_airparif.jpg)
+![](https://github.com/bugsounet/MMM-AirParif/blob/master/screenshot_airparif.jpg)
 
 ## Installation
 ```
 cd ~/Magicmirror/modules
-git clone https://github.com/Aldarande/MMM-AirParif.git
+git clone https://github.com/bugsounet/MMM-AirParif.git
 cd MMM-AirParif
 npm install
 ```
@@ -26,27 +26,27 @@ Il faudra cocher cette case lors de la demande
 Il faudra cocher cette case lors de la demande
 
 ## Configuration
-```
-                 {
-                          module: 'MMM-AirParif',
-                          position: "top_left",
-                          header: 'Qualité de l\'air',
-                          config: {
-                                  key: "", 
-                                  ville: ["75013,Paris", "92400,courbevoie"], // Mettre "CP , Nom de Ville" séparer par ,
-                                  polluants: true,
-                                  demain:	true,
-                                  update: 10,
-                            }
-                  },	
+```js
+  {
+    module: 'MMM-AirParif',
+    position: "top_left",
+    header: 'Qualité de l\'air',
+    config: {
+      key: "", 
+      ville: ["75013,Paris", "92400,courbevoie"], // Mettre "CP,Nom de Ville" séparer par ,
+      polluants: true,
+      demain: true,
+      update: 10,
+    }
+  },
 ```
 
 * key: mettre votre clé fourni par AirParif
 * ville: code postal et ville à afficher. Doit être sous la forme : ["code postal,ville"]
-* polluants : affiche le nom des polluants -> true : affiche / false : n'affiche pas
-* update : Temps avant mise à jour des informations en minutes
-* demain : pour afficher les statistiques détaillés
-* polluant : pour afficher les détailles des polluants
+* polluants: affiche le nom des polluants -> true : affiche / false : n'affiche pas
+* update: Temps avant mise à jour des informations en minutes
+* demain: pour afficher les statistiques du lendemain
+* polluant: pour afficher les détailles des polluants
 
 ### Remarques: 
 * Il est possible de demander l'affichage plusieures villes (voir exemple de configuration)
