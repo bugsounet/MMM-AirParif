@@ -1,6 +1,6 @@
 {
   "name": "MMM-AirParif",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Module MagicMirror 2, affiche l'indice journalier de votre commune.",
   "repository": {
     "type": "git",
@@ -13,14 +13,17 @@
     "airparif",
     "module"
   ],
-  "author": "bugsounet",
-  "contributors": "https://github.com/bugsounet",
+  "authors": [
+    "bugsounet",
+    "Aldarande"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bugsounet/MMM-AirParif/issues"
+    "url": "http://forum.bugsounet.fr"
   },
   "homepage": "https://github.com/bugsounet/MMM-AirParif",
   "dependencies": {
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "request-promise": "^4.2.6"
   }
 }
